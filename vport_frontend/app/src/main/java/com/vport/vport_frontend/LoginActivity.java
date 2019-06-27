@@ -91,62 +91,67 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-        final String POST_PARAMS = "{\n" + "\"userName\":"+ email+"," +
-                "    \"password\":"+password+"}";
+//        final String POST_PARAMS = "{\n" + "\"userName\":"+ email+"," +
+//                "    \"password\":"+password+"}";
+//
+//
+//
+//        try {
+////           URL obj = new URL("http://192.168.43.249:8080/login");
+//            URL obj = new URL("http://localhost:8080/login");
+//            HttpURLConnection postConnection = (HttpURLConnection) obj.openConnection();
+//            postConnection.setRequestMethod("POST");
+//            postConnection.setRequestProperty("Content-Type", "application/json");
+//            postConnection.setDoOutput(true);
+////        postConnection.setRequestProperty("userName", email);
+////        postConnection.setRequestProperty("password", password);
+//            OutputStream os = postConnection.getOutputStream();
+//            os.write(POST_PARAMS.getBytes());
+//            os.flush();
+//            os.close();
+//            int responseCode = postConnection.getResponseCode();
+//            System.out.println("POST Response Code :  " + responseCode);
+//            System.out.println("POST Response Message : " + postConnection.getResponseMessage());
+//
+//            if (responseCode == HttpURLConnection.HTTP_CREATED) { //success
+//                BufferedReader in = null;
+//                in = new BufferedReader(new InputStreamReader(
+//                        postConnection.getInputStream()));
+//                String inputLine = null;
+//                StringBuffer response = new StringBuffer();
+//                while (true) {
+//                    try {
+//                        if (!((inputLine = in.readLine()) != null)) break;
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                    response.append(inputLine);
+//                }
+//                try {
+//                    in.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                // print result
+//                System.out.println(response.toString());
+//            } else {
+//                System.out.println("POST NOT WORKED");
+//            }
+//
+////            progressDialog.dismiss();
+//            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//            startActivity(intent);
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//        }
 
 
-
-        try {
-           URL obj = new URL("http://192.168.43.249:8080/login");
-            HttpURLConnection postConnection = (HttpURLConnection) obj.openConnection();
-            postConnection.setRequestMethod("POST");
-            postConnection.setRequestProperty("Content-Type", "application/json");
-            postConnection.setDoOutput(true);
-//        postConnection.setRequestProperty("userName", email);
-//        postConnection.setRequestProperty("password", password);
-            OutputStream os = postConnection.getOutputStream();
-            os.write(POST_PARAMS.getBytes());
-            os.flush();
-            os.close();
-            int responseCode = postConnection.getResponseCode();
-            System.out.println("POST Response Code :  " + responseCode);
-            System.out.println("POST Response Message : " + postConnection.getResponseMessage());
-
-            if (responseCode == HttpURLConnection.HTTP_CREATED) { //success
-                BufferedReader in = null;
-                in = new BufferedReader(new InputStreamReader(
-                        postConnection.getInputStream()));
-                String inputLine = null;
-                StringBuffer response = new StringBuffer();
-                while (true) {
-                    try {
-                        if (!((inputLine = in.readLine()) != null)) break;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    response.append(inputLine);
-                }
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                // print result
-                System.out.println(response.toString());
-            } else {
-                System.out.println("POST NOT WORKED");
-            }
-
-//            progressDialog.dismiss();
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+//        final AsyncTask<String, String, String> response =  new LoginPoster().execute("http://192.168.43.249:8080/login", email, password);
+//        final AsyncTask<String, String, String> response =  new LoginPoster().execute("http://localhost:8080/login", email, password);
+        final AsyncTask<String, String, String> response =  new LoginPoster().execute("http://192.168.43.73:8080/login", email, password);
 
 
-        final AsyncTask<String, String, String> response =  new LoginPoster().execute("http://192.168.43.249:8080/login", email, password);
 
         new android.os.Handler().postDelayed(
                 new Runnable() {

@@ -7,10 +7,7 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        tools:layout_editor_absoluteX="118dp"
-        tools:layout_editor_absoluteY="135dp"
-        tools:srcCompat="@tools:sample/backgrounds/scenic[6]" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/imageView"/>
 </RelativeLayout>
