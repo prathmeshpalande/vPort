@@ -15,17 +15,49 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.Charset;
 
 public class CoordinatePoster extends AsyncTask<String, String, String> {
 
     @Override
     protected String doInBackground(String... params) {
+        Log.d("Threaded", "Inside Login Thread");
         JSONObject jsonObject = new JSONObject();
+
+        URL url = null;
+        try {
+            url = new URL(params[0]);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        URLConnection con = null;
+        try {
+            con = url.openConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        HttpURLConnection http = (HttpURLConnection) con;
+        try {
+            http.setRequestMethod("POST");
+//            http.setRequestProperty("x", Float.parseFloat(params[1]));
+//            http.setRequestProperty("y", Float.parseFloat(params[2]));
+            http.setRequestProperty("x", params[1]);
+            http.setRequestProperty("y", params[2]);
+//            http.// PUT is another valid option
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        }
+        http.setDoOutput(true);
 
         try {
             jsonObject.put("x", Float.parseFloat(params[1]));
             jsonObject.put("y", Float.parseFloat(params[2]));
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -40,35 +72,37 @@ public class CoordinatePoster extends AsyncTask<String, String, String> {
         // post header
         HttpPost httpPost = new HttpPost(params[0]);
         httpPost.setHeader("Content-type", "application/json");
-//        try {
-//            httpPost.setEntity(new StringEntity(data, Charset.forName("UTF-8")));
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
-
-        // execute HTTP post request
-        HttpResponse response = null;
         try {
-            response = httpClient.execute(httpPost);
-        } catch (IOException e) {
+            httpPost.setEntity(new StringEntity(data, Charset.forName("UTF-8").toString()));
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        HttpEntity resEntity = response.getEntity();
 
-        if (resEntity != null) {
+        try {
+            HttpResponse response = httpClient.execute(httpPost);
+            Log.i("Response captured: ", response.toString());
+            HttpEntity resEntity = response.getEntity();
+            if (resEntity != null) {
 
-            String responseStr = null;
-            try {
-                responseStr = EntityUtils.toString(resEntity).trim();
-            } catch (IOException e) {
-                e.printStackTrace();
+                String jsonString = null;
+                try {
+                    jsonString = EntityUtils.toString(resEntity);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Log.d("Success", " Touch Successfull!");
+                Log.i("JSON RESPONSE", jsonString);
+                return jsonString;
+
             }
-            Log.d("POSTCoorResponse", "Response: " +  responseStr);
-
-            // you can add an if statement here and do other actions based on the response
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        Log.d("Success", "Coordinates Posted Successfully!");
-        return "Success";
+
+        Log.d("Failed", "Touch Unsuccessful");
+        return null;
     }
 }

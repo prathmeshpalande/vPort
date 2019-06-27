@@ -20,6 +20,8 @@ import com.vport.vport_frontend.task.AsyncImageLoad;
 import com.vport.vport_frontend.task.AsyncResponse;
 import com.vport.vport_frontend.task.CoordinatePoster;
 
+import java.util.concurrent.ExecutionException;
+
 public class MainActivity extends AppCompatActivity implements AsyncResponse {
 
     private Coordinate deviceResolution;
@@ -28,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
     private float x1, x2;
     final int MIN_DISTANCE = 150;
 
-    AsyncImageLoad asyncImageLoad = new AsyncImageLoad();
+//    AsyncImageLoad asyncImageLoad = new AsyncImageLoad();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
 
         imageView = findViewById(R.id.imageView);
         Log.d("Thread", Thread.currentThread().toString());
+        AsyncImageLoad asyncImageLoad = new AsyncImageLoad();
         asyncImageLoad.delegate = this;
         asyncImageLoad.execute("http://192.168.43.73:8080/grab_screen");
     }
@@ -62,7 +65,9 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
         Log.d("Thread", Thread.currentThread().toString());
 
         setDeviceResolution();
-        imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, deviceResolution.getWidth(), deviceResolution.getHeight(), false));
+//        imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, deviceResolution.getWidth(), deviceResolution.getHeight(), false));
+        imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 1440, 3120, false));
+
     }
 
     public void setDeviceResolution() {
@@ -105,8 +110,26 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
                 {
                     // consider as something else - a screen tap for example
                     Toast.makeText(this, "Touched", Toast.LENGTH_SHORT).show ();
-                    new CoordinatePoster().execute("http://192.168.43.73:8080/touch", "" + (event.getX() / deviceResolution.getWidth()), "" + (event.getY() / deviceResolution.getHeight()));
+//                    new CoordinatePoster().execute("http://192.168.43.73:8080/touch", "" + (event.getX() / deviceResolution.getWidth()), "" + (event.getY() / deviceResolution.getHeight()));
+//                    try {
+                    try {
+                        new CoordinatePoster().execute("http://192.168.43.73:8080/touch", "" + (event.getX() / 1440), "" + (event.getY() / 3120)).get();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+//                    } catch (ExecutionException e) {
+//                        e.printStackTrace();
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
                 }
+//                new AsyncImageLoad().execute("http://192.168.43.73:8080/grab_screen");
+                Log.d("Thread", "Executing grab Image Again");
+                AsyncImageLoad asyncImageLoad = new AsyncImageLoad();
+                asyncImageLoad.delegate = this;
+                asyncImageLoad.execute("http://192.168.43.73:8080/grab_screen");
                 break;
         }
         return super.onTouchEvent(event);

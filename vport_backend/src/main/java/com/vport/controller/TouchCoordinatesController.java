@@ -17,7 +17,7 @@ public class TouchCoordinatesController {
     TouchCoordinatesService touchCoordinatesService;
 
     @PostMapping("/touch")
-    public void touchCoordinates(@RequestBody Coordinate coordinate) throws IOException, JadbException {
-        touchCoordinatesService.touch(coordinate);
+    public String touchCoordinates(@RequestBody Coordinate coordinate) throws IOException, JadbException {
+        return touchCoordinatesService.touch(coordinate) ? "Success" : "Failure";
     }
 }
