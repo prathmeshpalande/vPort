@@ -16,10 +16,10 @@ public class SwipeService {
         JadbConnection jadbConnection = new JadbConnection();
         JadbDevice device = jadbConnection.getDevices().get(0);
 
-        float x1 = coordinateList.get(0).getX() * 1080;
-        float y1 = coordinateList.get(0).getY() * 1920;
-        float x2 = coordinateList.get(1).getX() * 1080;
-        float y2 = coordinateList.get(1).getY() * 1920;
+        int x1 = (int)coordinateList.get(0).getX() * 1080;
+        int y1 = (int)coordinateList.get(0).getY() * 1920;
+        int x2 = (int)coordinateList.get(1).getX() * 1080;
+        int y2 = (int)coordinateList.get(1).getY() * 1920;
         device.executeShell( "touchscreen swipe " + x1 + " " + y1 + " " + x2 + " " + y2);
         return;
     }
