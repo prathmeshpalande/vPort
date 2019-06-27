@@ -15,6 +15,8 @@ public class TouchCoordinatesService {
     public void touch(Coordinate coordinate) throws IOException, JadbException {
         JadbConnection jadbConnection = new JadbConnection();
         List<JadbDevice> devices = jadbConnection.getDevices();
-        devices.get(0).executeShell("input tap " + coordinate.getX() + " " + coordinate.getY());
+        int x = 1080 * coordinate.getX();
+        int y = 1920 * coordinate.getY();
+        devices.get(0).executeShell("input tap " + x + " " + y);
     }
 }
