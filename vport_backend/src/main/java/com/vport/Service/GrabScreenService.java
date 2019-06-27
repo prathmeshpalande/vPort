@@ -18,7 +18,7 @@ public class GrabScreenService {
 
     public byte[] grabScreen() throws IOException, JadbException {
         JadbConnection jadbConnection = new JadbConnection();
-        JadbDevice device = (JadbDevice) jadbConnection.getDevices().get(0);
+        JadbDevice device = (JadbDevice) jadbConnection.getDevices().get(1);
 
         device.executeShell("screencap -p /sdcard/screencap.png");
         device.pull(new RemoteFile("/sdcard/screencap.png"), new File("screencap.png"));
@@ -27,7 +27,6 @@ public class GrabScreenService {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ImageIO.write(bImage, "png", bos );
         byte [] data = bos.toByteArray();
-
 
         return data;
 
