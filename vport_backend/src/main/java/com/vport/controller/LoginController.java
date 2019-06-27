@@ -14,7 +14,8 @@ public class LoginController {
     private LoginService loginService;
 
     @PostMapping("/login")
-    public Boolean getCredentials(@RequestBody Credential credential) {
-        return loginService.processCredentials(credential);
+    public String getCredentials(@RequestBody Credential credential) {
+
+        return (loginService.processCredentials(credential)) ? "success" : "fail";
     }
 }
