@@ -1,7 +1,5 @@
 package com.vport.Service;
 
-import com.vport.model.JadbConnectionUniversal;
-import com.vport.task.GrabScreenThread;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.vidstige.jadb.JadbConnection;
@@ -18,6 +16,7 @@ import java.io.IOException;
 
 @Service
 public class GrabScreenService {
+
 
 //    @Autowired
 //    JadbConnectionUniversal jadbConnection;
