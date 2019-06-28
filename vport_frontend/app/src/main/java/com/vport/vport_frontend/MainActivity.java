@@ -21,6 +21,7 @@ import com.vport.vport_frontend.model.Coordinate;
 import com.vport.vport_frontend.task.AsyncImageLoad;
 import com.vport.vport_frontend.task.AsyncResponse;
 import com.vport.vport_frontend.task.CoordinatePoster;
+import com.vport.vport_frontend.task.SwipePoster;
 
 import java.util.concurrent.ExecutionException;
 
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
     private ImageView imageView;
 
     private float x1, x2;
+    private float y1, y2;
     final int MIN_DISTANCE = 150;
 
     private Handler handler = new Handler();
@@ -124,13 +126,17 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
         {
             case MotionEvent.ACTION_DOWN:
                 x1 = event.getX();
+                y1 = event.getY();
                 break;
             case MotionEvent.ACTION_UP:
                 x2 = event.getX();
+                y2 = event.getY();
                 float deltaX = x2 - x1;
-                if (Math.abs(deltaX) > MIN_DISTANCE)
+                float deltaY = y2 - y1;
+                if (Math.abs(deltaX) > MIN_DISTANCE || Math.abs(deltaY) > MIN_DISTANCE)
                 {
                     Toast.makeText(this, "left2right swipe", Toast.LENGTH_SHORT).show ();
+                    new SwipePoster().execute("http://192.168.43.73:8080/swipe", "" + (x1 / 1440), "" + (y1 / 3120), "" + (x2 / 1440), "" + (y2 / 3120));
                 }
                 else
                 {
