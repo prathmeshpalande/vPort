@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
     private float x1, x2;
     final int MIN_DISTANCE = 150;
 
+    private Handler handler = new Handler();
+
 //    AsyncImageLoad asyncImageLoad = new AsyncImageLoad();
 
     @Override
@@ -52,10 +56,33 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
 
         imageView = findViewById(R.id.imageView);
         Log.d("Thread", Thread.currentThread().toString());
+
+        //doTheAutoRefresh();
+
+
         AsyncImageLoad asyncImageLoad = new AsyncImageLoad();
         asyncImageLoad.delegate = this;
         asyncImageLoad.execute("http://192.168.43.73:8080/grab_screen");
+
+
     }
+
+    private void doTheAutoRefresh() {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Log.d("AutoRefresh", "Performing screen refreshing");
+                    new AsyncImageLoad().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://192.168.43.73:8080/grab_screen");
+
+                } catch(Exception e ) {
+                    e.printStackTrace();
+                }
+
+                }
+            },1);
+        }
+
 
     //this override the implemented method from asyncTask
     @Override
@@ -67,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
         setDeviceResolution();
 //        imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, deviceResolution.getWidth(), deviceResolution.getHeight(), false));
         imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 1440, 3120, false));
-
     }
 
     public void setDeviceResolution() {

@@ -1,5 +1,6 @@
 package com.vport.Service;
 
+import com.vport.task.ADBExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.vidstige.jadb.JadbConnection;
@@ -21,17 +22,20 @@ public class GrabScreenService {
 //    @Autowired
 //    JadbConnectionUniversal jadbConnection;
 
-    @Autowired
-    JadbConnection jadbConnection;
+//    @Autowired
+//    JadbConnection jadbConnection;
 
     public byte[] grabScreen() throws IOException, JadbException {
 //        JadbConnection jadbConnection = new JadbConnection();
-//        JadbDevice device = (JadbDevice) jadbConnection.getJadbConnection().getDevices().get(1);
-        JadbDevice device = (JadbDevice) jadbConnection.getDevices().get(1);
+//       // JadbDevice device = (JadbDevice) jadbConnection.getJadbConnection().getDevices().get(1);
+//        JadbDevice device = (JadbDevice) jadbConnection.getDevices().get(1);
+//
+//
+//        device.executeShell("screencap -p /sdcard/screencap.png");
+//        device.pull(new RemoteFile("/sdcard/screencap.png"), new File("screencap.png"));
 
-
-        device.executeShell("screencap -p /sdcard/screencap.png");
-        device.pull(new RemoteFile("/sdcard/screencap.png"), new File("screencap.png"));
+        ADBExecutor.executeADBCommand("adb shell screencap -p /sdcard/screencap.png");
+        ADBExecutor.executeADBCommand("adb pull /sdcard/screencap.png");
 
 //        GrabScreenThread grabScreenThread = new GrabScreenThread();
 //        grabScreenThread.start();
