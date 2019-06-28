@@ -13,7 +13,7 @@ public class ResolutionController {
 
     @GetMapping("/resolution")
     public Coordinate getDisplayAspect() {
-        Coordinate retval = new Coordinate(1080, 1920);
+        Coordinate retval = new Coordinate(1080f, 1920f);
         // get the resolution of the emulated device  else return 1080p
         JadbConnection jadb = new JadbConnection();
         try {

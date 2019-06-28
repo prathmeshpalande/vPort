@@ -2,6 +2,7 @@ package com.vport;
 
 import java.util.Arrays;
 
+import com.vport.task.GrabScreenThread;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,6 +14,18 @@ public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
+
+//        while(true) {
+//            GrabScreenThread grabScreenThread = new GrabScreenThread();
+//            grabScreenThread.start();
+//
+//            try {
+//                grabScreenThread.join();
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     @Bean
