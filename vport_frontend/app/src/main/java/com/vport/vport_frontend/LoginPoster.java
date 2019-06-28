@@ -3,6 +3,13 @@ package com.vport.vport_frontend;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,13 +21,6 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
 
 public class LoginPoster extends AsyncTask<String, String, String> {
     @Override
@@ -40,7 +40,7 @@ public class LoginPoster extends AsyncTask<String, String, String> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        HttpURLConnection http = (HttpURLConnection)con;
+        HttpURLConnection http = (HttpURLConnection) con;
         try {
             http.setRequestMethod("POST");
             http.setRequestProperty("userName", (params[1]));
@@ -81,13 +81,6 @@ public class LoginPoster extends AsyncTask<String, String, String> {
             HttpEntity resEntity = response.getEntity();
             if (resEntity != null) {
 
-//            String responseStr = null;
-//            try {
-//                responseStr = EntityUtils.toString(resEntity).trim();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-
                 String jsonString = null;
                 try {
                     jsonString = EntityUtils.toString(resEntity);
@@ -95,22 +88,14 @@ public class LoginPoster extends AsyncTask<String, String, String> {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-                // Log.d("LoginResponse", "Response: " +  resEntity.toString());
-
-                // you can add an if statement here and do other actions based on the response
-
                 Log.d("Success", " Login Successfull!");
                 Log.i("JSON RESPONSE", jsonString);
                 return jsonString;
 
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-
 
         Log.d("Failed", "User name or Password is incorrect");
         return null;
