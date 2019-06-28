@@ -13,12 +13,17 @@
             android:paddingLeft="24dp"
             android:paddingRight="24dp">
 
-            <ImageView
-                android:id="@+id/phone_icon"
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="150dp"
+                android:layout_gravity="center">
+            <com.synnapps.carouselview.CarouselView
+                android:id="@+id/carouselView"
                 android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:src="@drawable/cloud_phone_system" />
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                />
+            </RelativeLayout>
 
             <!--<LinearLayout-->
             <!--android:layout_width="match_parent"-->
@@ -31,7 +36,7 @@
                 android:inputType="textEmailAddress"
                 android:drawablePadding="7dp"
                 android:textColor="#FFFFFF"
-                android:layout_marginTop="200dp"
+                android:layout_marginTop="100dp"
                 android:layout_marginBottom="8dp"
                 android:hint="Email"
                 android:textColorHint="#C0C0C0"/>

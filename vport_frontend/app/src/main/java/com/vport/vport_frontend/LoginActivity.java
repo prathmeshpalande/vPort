@@ -11,7 +11,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageListener;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,12 +41,24 @@ public class LoginActivity extends AppCompatActivity {
 //    @BindView(R.id.btn_login)
       Button _loginButton;
 
+    CarouselView carouselView;
+    int[] sampleImages = {R.drawable.blackberry, R.drawable.skype, R.drawable.access, R.drawable.ps};
+
+    ImageListener imageListener = new ImageListener() {
+        @Override
+        public void setImageForPosition(int position, ImageView imageView) {
+            imageView.setImageResource(sampleImages[position]);
+        }
+    };
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        carouselView = (CarouselView) findViewById(R.id.carouselView);
+        carouselView.setPageCount(sampleImages.length);
+        carouselView.setImageListener(imageListener);
 //        ButterKnife.bind(this);
 
         _emailText=(EditText) findViewById(R.id.input_email);
@@ -76,12 +92,6 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         _loginButton.setEnabled(false);
-
-//        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
-//                R.style.AppTheme_Dark_Dialog);
-//        progressDialog.setIndeterminate(true);
-//        progressDialog.setMessage("Authenticating...");
-//        progressDialog.show();
 
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
@@ -168,12 +178,6 @@ public class LoginActivity extends AppCompatActivity {
                         try {
                             if(response.get().equals("success")) {
                                 onLoginSuccess();
-    //                            final ProgressDialog dialog = new ProgressDialog(LoginActivity.this,
-    //                                    R.style.AppTheme_Dark_Dialog);
-    //                            dialog.setIndeterminate(true);
-    //                            dialog.setMessage("Authenticated");
-    //                            dialog.show();
-    //                            dialog.dismiss();
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(intent);
                             } else {
