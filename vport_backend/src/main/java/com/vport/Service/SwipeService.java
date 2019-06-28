@@ -31,6 +31,13 @@ public class SwipeService {
 
         System.out.println("x1: " + x1 + "\ny1: " + y1 + "\nx2: " + x2 + "\ny2: " + y2);
         ADBExecutor.executeADBCommand("adb shell input touchscreen swipe " + x1 + " " + y1 + " " + x2 + " " + y2);
+
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
 //        ADBExecutor.executeADBCommand("powershell.exe adb pull /sdcard/screencap.png");
         return;
     }

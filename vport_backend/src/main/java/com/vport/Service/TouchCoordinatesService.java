@@ -35,13 +35,13 @@ public class TouchCoordinatesService {
         System.out.println("X TOUCH: " + x + "\nY TOUCH: " + y);
 //        devices.get(1).executeShell("input tap " + x + " " + y);
 
+        ADBExecutor.executeADBCommand("adb shell input tap " + x + " " + y);
+
         try {
-            Thread.sleep(300);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        ADBExecutor.executeADBCommand("adb shell input tap " + x + " " + y);
 
 //        devices.get(1).executeShell("screencap -p /sdcard/screencap.png");
 //        devices.get(1).pull(new RemoteFile("/sdcard/screencap.png"), new File("screencap.png"));
