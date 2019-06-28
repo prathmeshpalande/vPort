@@ -33,7 +33,7 @@ public class SwipeService {
         ADBExecutor.executeADBCommand("adb shell input touchscreen swipe " + x1 + " " + y1 + " " + x2 + " " + y2);
 
         try {
-            Thread.sleep(10);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
