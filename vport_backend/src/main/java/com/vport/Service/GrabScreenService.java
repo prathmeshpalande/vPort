@@ -21,8 +21,11 @@ public class GrabScreenService {
 //    @Autowired
 //    JadbConnectionUniversal jadbConnection;
 
+    @Autowired
+    JadbConnection jadbConnection;
+
     public byte[] grabScreen() throws IOException, JadbException {
-        JadbConnection jadbConnection = new JadbConnection();
+//        JadbConnection jadbConnection = new JadbConnection();
 //        JadbDevice device = (JadbDevice) jadbConnection.getJadbConnection().getDevices().get(1);
         JadbDevice device = (JadbDevice) jadbConnection.getDevices().get(1);
 

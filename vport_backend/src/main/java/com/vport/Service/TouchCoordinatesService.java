@@ -19,8 +19,11 @@ public class TouchCoordinatesService {
 //    @Autowired
 //    JadbConnectionUniversal jadbConnection;
 
+    @Autowired
+    JadbConnection jadbConnection;
+
     public Boolean touch(Coordinate coordinate) throws IOException, JadbException {
-        JadbConnection jadbConnection = new JadbConnection();
+//        JadbConnection jadbConnection = new JadbConnection();
 //        List<JadbDevice> devices = jadbConnection.getJadbConnection().getDevices();
 
         List<JadbDevice> devices = jadbConnection.getDevices();
@@ -29,7 +32,7 @@ public class TouchCoordinatesService {
         Float y = 1920 * coordinate.getY();
 
         System.out.println("X TOUCH: " + x + "\nY TOUCH: " + y);
-        devices.get(1).executeShell("input tap " + x + " " + y);
+        devices.get(0).executeShell("input tap " + x + " " + y);
 
 //        devices.get(1).executeShell("screencap -p /sdcard/screencap.png");
 //        devices.get(1).pull(new RemoteFile("/sdcard/screencap.png"), new File("screencap.png"));
