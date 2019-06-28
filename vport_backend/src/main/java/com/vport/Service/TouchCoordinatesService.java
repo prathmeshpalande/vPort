@@ -35,11 +35,11 @@ public class TouchCoordinatesService {
         System.out.println("X TOUCH: " + x + "\nY TOUCH: " + y);
 //        devices.get(1).executeShell("input tap " + x + " " + y);
 
-//        try {
-//            Thread.sleep(500);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         ADBExecutor.executeADBCommand("adb shell input tap " + x + " " + y);
 
