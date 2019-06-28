@@ -1,5 +1,6 @@
 package com.vport.Service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.vidstige.jadb.JadbConnection;
 import se.vidstige.jadb.JadbDevice;
@@ -16,9 +17,10 @@ import java.io.IOException;
 @Service
 public class GrabScreenService {
 
+    @Autowired
+    JadbConnection jadbConnection;
     public byte[] grabScreen() throws IOException, JadbException {
-        JadbConnection jadbConnection = new JadbConnection();
-        JadbDevice device = (JadbDevice) jadbConnection.getDevices().get(0);
+        JadbDevice device = jadbConnection.getDevices().get(0);
 
         device.executeShell("screencap -p /sdcard/screencap.png");
         device.pull(new RemoteFile("/sdcard/screencap.png"), new File("screencap.png"));
