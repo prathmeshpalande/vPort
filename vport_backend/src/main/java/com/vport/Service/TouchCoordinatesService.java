@@ -16,12 +16,14 @@ import java.util.List;
 @Service
 public class TouchCoordinatesService {
 
-    @Autowired
-    JadbConnectionUniversal jadbConnection;
+//    @Autowired
+//    JadbConnectionUniversal jadbConnection;
 
     public Boolean touch(Coordinate coordinate) throws IOException, JadbException {
-//        JadbConnection jadbConnection = new JadbConnection();
-        List<JadbDevice> devices = jadbConnection.getJadbConnection().getDevices();
+        JadbConnection jadbConnection = new JadbConnection();
+//        List<JadbDevice> devices = jadbConnection.getJadbConnection().getDevices();
+        List<JadbDevice> devices = jadbConnection.getDevices();
+
         Float x = 1080 * coordinate.getX();
         Float y = 1920 * coordinate.getY();
 

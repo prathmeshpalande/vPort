@@ -19,12 +19,14 @@ import java.io.IOException;
 @Service
 public class GrabScreenService {
 
-    @Autowired
-    JadbConnectionUniversal jadbConnection;
+//    @Autowired
+//    JadbConnectionUniversal jadbConnection;
 
     public byte[] grabScreen() throws IOException, JadbException {
-//        JadbConnection jadbConnection = new JadbConnection();
-        JadbDevice device = (JadbDevice) jadbConnection.getJadbConnection().getDevices().get(1);
+        JadbConnection jadbConnection = new JadbConnection();
+//        JadbDevice device = (JadbDevice) jadbConnection.getJadbConnection().getDevices().get(1);
+        JadbDevice device = (JadbDevice) jadbConnection.getDevices().get(1);
+
 
         device.executeShell("screencap -p /sdcard/screencap.png");
         device.pull(new RemoteFile("/sdcard/screencap.png"), new File("screencap.png"));
@@ -38,13 +40,14 @@ public class GrabScreenService {
 //            e.printStackTrace();
 //        }
 
-        byte[] data = null;
-        try {
-            data = imageToByteStream();
-        }
-        catch(Exception e) {
-            data = new byte[1];
-        }
+//        byte[] data = null;
+        byte[] data = imageToByteStream();
+//        try {
+//            data = imageToByteStream();
+//        }
+//        catch(Exception e) {
+//            data = new byte[1];
+//        }
 
         return data;
 

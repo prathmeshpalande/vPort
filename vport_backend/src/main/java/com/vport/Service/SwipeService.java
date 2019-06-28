@@ -14,18 +14,20 @@ import java.util.List;
 @Service
 public class SwipeService {
 
-    @Autowired
-    JadbConnectionUniversal jadbConnection;
+//    @Autowired
+//    JadbConnectionUniversal jadbConnection;
 
     public void processCoordinates(List<Coordinate> coordinateList) throws IOException, JadbException {
-//        JadbConnection jadbConnection = new JadbConnection();
-        JadbDevice device = jadbConnection.getJadbConnection().getDevices().get(0);
+        JadbConnection jadbConnection = new JadbConnection();
+//        JadbDevice device = jadbConnection.getJadbConnection().getDevices().get(0);
+        JadbDevice device = jadbConnection.getDevices().get(0);
 
         Float x1 = coordinateList.get(0).getX() * 1080;
         Float y1 = coordinateList.get(0).getY() * 1920;
         Float x2 = coordinateList.get(1).getX() * 1080;
         Float y2 = coordinateList.get(1).getY() * 1920;
         device.executeShell( "touchscreen swipe " + x1 + " " + y1 + " " + x2 + " " + y2);
+
         return;
     }
 }
