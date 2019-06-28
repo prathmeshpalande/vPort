@@ -107,11 +107,9 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
                 float deltaX = x2 - x1;
                 float deltaY = y2 - y1;
                 if (Math.abs(deltaX) > MIN_DISTANCE || Math.abs(deltaY) > MIN_DISTANCE) {
-                    Toast.makeText(this, "left2right swipe", Toast.LENGTH_SHORT).show();
                     new SwipePoster().execute("http://192.168.43.73:8080/swipe", "" + (x1 / 1440), "" + (y1 / 3120), "" + (x2 / 1440), "" + (y2 / 3120));
                 } else {
                     // consider as something else - a screen tap for example
-                    Toast.makeText(this, "Touched", Toast.LENGTH_SHORT).show();
                     try {
                         new CoordinatePoster().execute("http://192.168.43.73:8080/touch", "" + (event.getX() / 1440), "" + (event.getY() / 3120)).get();
                     } catch (ExecutionException e) {
