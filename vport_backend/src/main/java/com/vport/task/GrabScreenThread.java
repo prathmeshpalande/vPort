@@ -19,7 +19,6 @@ public class GrabScreenThread extends Thread {
 
     @Override
     public void run() {
-//        JadbConnection jadbConnection = new JadbConnection();
 
         try {
             JadbDevice device = (JadbDevice) jadbConnection.getJadbConnection().getDevices().get(1);

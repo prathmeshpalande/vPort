@@ -14,18 +14,6 @@ public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-
-//        while(true) {
-//            GrabScreenThread grabScreenThread = new GrabScreenThread();
-//            grabScreenThread.start();
-//
-//            try {
-//                grabScreenThread.join();
-//                Thread.sleep(1000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
     }
 
     @Bean
