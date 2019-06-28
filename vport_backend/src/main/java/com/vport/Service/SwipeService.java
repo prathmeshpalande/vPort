@@ -29,7 +29,8 @@ public class SwipeService {
         Float y2 = coordinateList.get(1).getY() * 1920;
 //        device.executeShell( "touchscreen swipe " + x1 + " " + y1 + " " + x2 + " " + y2);
 
-        ADBExecutor.executeADBCommand("adb shell touchscreen swipe " + x1 + " " + y1 + " " + x2 + " " + y2);
+        System.out.println("x1: " + x1 + "\ny1: " + y1 + "\nx2: " + x2 + "\ny2: " + y2);
+        ADBExecutor.executeADBCommand("adb shell input touchscreen swipe " + x1 + " " + y1 + " " + x2 + " " + y2);
 //        ADBExecutor.executeADBCommand("powershell.exe adb pull /sdcard/screencap.png");
         return;
     }
