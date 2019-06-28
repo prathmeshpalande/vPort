@@ -1,6 +1,8 @@
 package com.vport.Service;
 
 import com.vport.model.Coordinate;
+import com.vport.model.JadbConnectionUniversal;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.vidstige.jadb.JadbConnection;
 import se.vidstige.jadb.JadbDevice;
@@ -12,9 +14,12 @@ import java.util.List;
 @Service
 public class SwipeService {
 
+    @Autowired
+    JadbConnectionUniversal jadbConnection;
+
     public void processCoordinates(List<Coordinate> coordinateList) throws IOException, JadbException {
-        JadbConnection jadbConnection = new JadbConnection();
-        JadbDevice device = jadbConnection.getDevices().get(0);
+//        JadbConnection jadbConnection = new JadbConnection();
+        JadbDevice device = jadbConnection.getJadbConnection().getDevices().get(0);
 
         Float x1 = coordinateList.get(0).getX() * 1080;
         Float y1 = coordinateList.get(0).getY() * 1920;

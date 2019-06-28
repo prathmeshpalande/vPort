@@ -1,6 +1,8 @@
 package com.vport.Service;
 
 import com.vport.model.Coordinate;
+import com.vport.model.JadbConnectionUniversal;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.vidstige.jadb.JadbConnection;
 import se.vidstige.jadb.JadbDevice;
@@ -14,9 +16,12 @@ import java.util.List;
 @Service
 public class TouchCoordinatesService {
 
+    @Autowired
+    JadbConnectionUniversal jadbConnection;
+
     public Boolean touch(Coordinate coordinate) throws IOException, JadbException {
-        JadbConnection jadbConnection = new JadbConnection();
-        List<JadbDevice> devices = jadbConnection.getDevices();
+//        JadbConnection jadbConnection = new JadbConnection();
+        List<JadbDevice> devices = jadbConnection.getJadbConnection().getDevices();
         Float x = 1080 * coordinate.getX();
         Float y = 1920 * coordinate.getY();
 
