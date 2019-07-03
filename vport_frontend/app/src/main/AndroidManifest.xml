@@ -15,7 +15,7 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".WelcomeActivity">
             <intent-filter>
-                <action android:name="com.vport.vport_frontend.WelcomeActivity" />
+                <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

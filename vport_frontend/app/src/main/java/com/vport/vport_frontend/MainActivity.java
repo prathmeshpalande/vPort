@@ -47,17 +47,22 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
 
         int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+                | View.SYSTEM_UI_FLAG_IMMERSIVE;
         decorView.setSystemUiVisibility(uiOptions);
         //End of Full Screen Code
 
+
         imageView = findViewById(R.id.imageView);
         Log.d("Thread", Thread.currentThread().toString());
+        imageView.getLayoutParams().width = 1440;
+        imageView.getLayoutParams().height = 3120;
+        imageView.requestLayout();
 
+        setDeviceResolution();
 
         AsyncImageLoad asyncImageLoad = new AsyncImageLoad();
         asyncImageLoad.delegate = this;
-        asyncImageLoad.execute("http://192.168.43.73:8080/grab_screen");
+        asyncImageLoad.execute("http://103.96.40.153:5096/grab_screen");
 
     }
 
@@ -69,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
         //of onPostExecute(result) method.
         Log.d("Thread", Thread.currentThread().toString());
 
-        setDeviceResolution();
         imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 1440, 3120, false));
     }
 
@@ -96,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
+
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 x1 = event.getX();
@@ -107,11 +112,11 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
                 float deltaX = x2 - x1;
                 float deltaY = y2 - y1;
                 if (Math.abs(deltaX) > MIN_DISTANCE || Math.abs(deltaY) > MIN_DISTANCE) {
-                    new SwipePoster().execute("http://192.168.43.73:8080/swipe", "" + (x1 / 1440), "" + (y1 / 3120), "" + (x2 / 1440), "" + (y2 / 3120));
+                    new SwipePoster().execute("http://103.96.40.153:5096/swipe", "" + (x1 / 1440), "" + (y1 / 3120), "" + (x2 / 1440), "" + (y2 / 3120));
                 } else {
                     // consider as something else - a screen tap for example
                     try {
-                        new CoordinatePoster().execute("http://192.168.43.73:8080/touch", "" + (event.getX() / 1440), "" + (event.getY() / 3120)).get();
+                        new CoordinatePoster().execute("http://103.96.40.153:5096/touch", "" + (event.getX() / 1440), "" + (event.getY() / 3120)).get();
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
@@ -121,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
                 Log.d("Thread", "Executing grab Image Again");
                 AsyncImageLoad asyncImageLoad = new AsyncImageLoad();
                 asyncImageLoad.delegate = this;
-                asyncImageLoad.execute("http://192.168.43.73:8080/grab_screen");
+                asyncImageLoad.execute("http://103.96.40.153:5096/grab_screen");
                 break;
         }
         return super.onTouchEvent(event);

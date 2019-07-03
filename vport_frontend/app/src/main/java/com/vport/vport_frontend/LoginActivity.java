@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // TODO: Implement your own authentication logic here.
 
-        final AsyncTask<String, String, String> response = new LoginPoster().execute("http://192.168.43.73:8080/login", email, password);
+        final AsyncTask<String, String, String> response = new LoginPoster().execute("http://103.96.40.153:5096/login", email, password);
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
