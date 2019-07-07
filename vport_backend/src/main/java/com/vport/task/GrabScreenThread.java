@@ -1,6 +1,9 @@
 package com.vport.task;
 
 import com.vport.model.JadbConnectionUniversal;
+import com.vport.util.StreamGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import se.vidstige.jadb.JadbConnection;
@@ -13,6 +16,8 @@ import java.io.IOException;
 
 @Component
 public class GrabScreenThread extends Thread {
+
+    Logger logger = LoggerFactory.getLogger(GrabScreenThread.class);
 
     @Autowired
     JadbConnectionUniversal jadbConnection;

@@ -24,8 +24,8 @@ public class DummyUsers implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         users = new HashMap<>();
-        User user1 = new User(new Credential("user1@gmail.com", "abc123"), null);
-        User user2 = new User(new Credential("user2@gmail.com", "abc456"), null);
+        User user1 = new User(new Credential("user1@gmail.com", "abc123"), null, null);
+        User user2 = new User(new Credential("user2@gmail.com", "abc456"), null, null);
 
         users.put("user1@gmail.com", user1);
         users.put("user2@gmail.com", user2);

@@ -3,11 +3,14 @@ package com.vport.model;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class User {
 
     private Credential credential;
     private String sessionKey;
+    private List<Device> deviceList;
 
     public User() {
     }
@@ -28,8 +31,17 @@ public class User {
         this.sessionKey = sessionKey;
     }
 
-    public User(Credential credential, String sessionKey) {
+    public List<Device> getDeviceList() {
+        return deviceList;
+    }
+
+    public void setDeviceList(List<Device> deviceList) {
+        this.deviceList = deviceList;
+    }
+
+    public User(Credential credential, String sessionKey, List<Device> deviceList) {
         this.credential = credential;
         this.sessionKey = sessionKey;
+        this.deviceList = deviceList;
     }
 }
